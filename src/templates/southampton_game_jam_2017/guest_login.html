@@ -1,0 +1,34 @@
+{% load xextends %}
+{% load layout %}
+
+{% xextends "base.html" with secondary_nav="gamejam_dashboard" %}
+
+{% block content %}
+    <div class="l-container">
+        <div class="l-primary-content block-list">
+            <div class="block block-list__item">
+                <header class="block__header">
+                    <h2 class="block__header-text">Guest Login</h2>
+                </header>
+                {% if not this_login %}
+                    <form method="POST" action="{% url "guest_login" %}">
+                        {% csrf_token %}
+                        <p>Are you sure you need a guest log in? These are limited in number so please only request one if you're going to use it.</p>
+                        <button type="submit">Request Login</button> <a href="{% url "index" %}">cancel</a>
+                    </form>
+                {% else %}
+                    <table>
+                        <tr>
+                            <th>Username</th>
+                            <td>{{this_login.username}}</td>
+                        </tr>
+                        <tr>
+                            <th>Password</th>
+                            <td>{{this_login.password}}</td>
+                        </tr>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

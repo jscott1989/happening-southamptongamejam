@@ -1,0 +1,18 @@
+{% load xextends %}
+{% load layout %}
+{% load forms %}
+
+{% xextends "southampton_game_jam_2017/admin/base.html" with tertiary_nav="add_guest_login" %}
+
+{% block gamejam_content %}
+    <div class="block block-list__item">
+        <header class="block__header">
+            <h2 class="block__header-text">Add Guest Login</h2>
+        </header>
+        <form method="POST">
+            {% csrf_token %}
+            {{form|render}}
+            <button type="submit">Save</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load xextends %}
+{% load layout %}
+{% load forms %}
+
+{% xextends "base.html" with secondary_nav="gamejam_dashboard" %}
+
+{% block content %}
+    <div class="l-container">
+        <div class="l-primary-content block-list">
+            {% if this_macs %}
+                <div class="block block-list__item">
+                    <header class="block__header">
+                        <h2 class="block__header-text">MAC addresses</h2>
+                    </header>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for mac in this_macs %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{mac.address}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+
+            <div class="block block-list__item">
+                <header class="block__header">
+                    <h2 class="block__header-text">Register MAC address</h2>
+                </header>
+                <form method="POST" action="{% url "register_mac_address" %}">
+                    {% csrf_token %}
+                    {{form|render}}
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

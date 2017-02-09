@@ -1,0 +1,58 @@
+{% load xextends %}
+{% load layout %}
+
+{% xextends "southampton_game_jam_2017/admin/base.html" with tertiary_nav="gamejam_dashboard" %}
+
+{% block gamejam_content %}
+    <div class="block block-list__item">
+        <header class="block__header">
+            <h2 class="block__header-text">MAC Addresses</h2>
+        </header>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Address</th>
+                    <th>User</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mac in mac_addresses %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{mac.address}}</td>
+                    <td><a href="{% url "view_profile" mac.userid %}">{{mac.username}}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="block block-list__item">
+        <header class="block__header">
+            <h2 class="block__header-text">Guest Logins</h2>
+        </header>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Claimed By</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for login in guest_logins %}
+                <tr>
+                    <td>{{login.username}}</td>
+                    <td>{{login.password}}</td>
+                    <td>
+                        {% if login.claim_username %}
+                            <a href="{% url "view_profile" login.userid %}">{{login.claim_username}}</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
