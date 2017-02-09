@@ -9,7 +9,7 @@ class SouthamptonGameJamBlockType(BlockType):
 
     def render(self, request, data):
         if request.user.is_anonymous:
-            return None
+            return ""
         return super(SouthamptonGameJamBlockType, self).render(request, data)
 
     def render_content(self, request, data):
